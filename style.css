@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+ 
+ body{height: 800px;
+    width: 100%;
+    display: inline-block;
+    background-image: linear-gradient(rgb(217, 189, 218), rgb(84, 75, 99));
+}
+.busmallimg img{
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+}
+h1{
+    font-family: 'Pattaya', sans-serif;
+
+}
+
+li {
+    font-family: 'Caveat', cursive;
+    font-size: 25px;
+}
+.main button{
+    background-color: rgb(78, 42, 112);
+    height: 80px;
+    width: 30%;
+    font-size: 30px;
+}
+p{
+    font-family: 'Caveat', cursive;
+
+}
