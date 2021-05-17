@@ -13,11 +13,14 @@
 header{
     width: 100%;
 }
+.busmallimg{   
+     margin-left:200px;
+}
 .busmallimg img{
     height: 200px;
     width: 200px;
     margin: 10px;
-    margin-left: 150px;
+    border: 5px;
 }
 h1{
     font-family: 'Pattaya', sans-serif;
