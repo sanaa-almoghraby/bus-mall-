@@ -65,6 +65,10 @@ function randomImage() {
     secondimgElement.src = busmall[secondimag].path
     thirdimgElement.src = busmall[thirdimag].path
 
+    firstimgElement.times = busmall[firstimag].times++;
+    secondimgElement.times = busmall[secondimag].times++;
+    thirdimgElement.times = busmall[thirdimag].times++;
+
 }
 randomImage();
 
@@ -111,7 +115,7 @@ function listofresult(event) {
     for (let i = 0; i < busmall.length; i++) {
         listImage = document.createElement('li');
         ullist.appendChild(listImage);
-        listImage.textContent = `${ busmall[i].name }  had ${ busmall[i].counterclic } , and was seen ${ busmall[i].times } times.`;
+        listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
 
 
     }
