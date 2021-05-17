@@ -64,7 +64,7 @@ function randomImage() {
     do {
         secondimag = gitRandomImage();
         thirdimag = gitRandomImage();
-    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag===checkimg[0] || secondimag===checkimg[1] || thirdimag===checkimg[2]);
+    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag === checkimg[0] || secondimag===checkimg[1] || thirdimag===checkimg[2]);
     
     // console.log(busmall[firstimag]);
     // console.log(busmall[secondimag]);
