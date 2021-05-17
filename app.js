@@ -13,6 +13,9 @@ let secondimag;
 let thirdimag;
 let voting = 25;
 let userClic = 0;
+let productName=[];
+let countVote=[];
+let productShown=[];
 
 function CAtalogbusmall(name, path, times) {
     this.name = name;
@@ -20,6 +23,7 @@ function CAtalogbusmall(name, path, times) {
     this.times = times;
     this.counterclic = 0
     busmall.push(this);
+    productName.push(this.name);
 
 }
 new CAtalogbusmall('bag', 'img/bag.jpg', 0);
@@ -47,28 +51,33 @@ function gitRandomImage() {
 }
 // console.log(Math.floor(Math.random() * busmall.length));
 
+
 function randomImage() {
 
     firstimag = gitRandomImage();
     secondimag = gitRandomImage();
     thirdimag = gitRandomImage();
-
+    
+    let checkimg = [busmall[firstimag].name ,busmall[secondimag].name,busmall[thirdimag].name];
+    console.log(checkimg);
+    
     do {
         secondimag = gitRandomImage();
         thirdimag = gitRandomImage();
-    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag);
-
+    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag===checkimg[0] || secondimag===checkimg[1] || thirdimag===checkimg[2]);
+    
     // console.log(busmall[firstimag]);
     // console.log(busmall[secondimag]);
     // console.log(busmall[thirdimag]);
     firstimgElement.src = busmall[firstimag].path
     secondimgElement.src = busmall[secondimag].path
     thirdimgElement.src = busmall[thirdimag].path
-
+    
     firstimgElement.times = busmall[firstimag].times++;
     secondimgElement.times = busmall[secondimag].times++;
     thirdimgElement.times = busmall[thirdimag].times++;
-
+    
+    
 }
 randomImage();
 
@@ -105,18 +114,58 @@ function clickImage(event) {
 
     randomImage();
 }
-let liImge = document.getElementById('listresult');
+// let liImge = document.getElementById('listresult');
 
 showResult.addEventListener('click', listofresult);
 function listofresult(event) {
-    let ullist = document.createElement('ul')
-    liImge.appendChild(ullist);
-    let listImage;
-    for (let i = 0; i < busmall.length; i++) {
-        listImage = document.createElement('li');
-        ullist.appendChild(listImage);
-        listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
+    // let ullist = document.createElement('ul')
+    // liImge.appendChild(ullist);
+    // let listImage;
+    // for (let i = 0; i < busmall.length; i++) {
+    //     listImage = document.createElement('li');
+    //     ullist.appendChild(listImage);
+    //     listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
 
+    // }
+    for(let i=0;i<busmall.length; i++){
+        countVote.push(busmall[i].counterclic);
+        productShown.push(busmall[i].times);
 
     }
+risultChart();
 }
+
+function risultChart() {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: productName
+            ,
+            datasets: [{
+                label: '# of product choice',
+                data: countVote,
+                backgroundColor: 'rgba(201, 76, 76, 0.6)',
+                borderColor: 'rgba(0,255,0,0.3)',
+                borderWidth: 1
+            },
+        {
+            label: '# of product shown',
+            data: productShown,
+            backgroundColor:'#8A2B45',
+            borderColor:'#3A1742',
+            borderWidth:1
+        }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
+
+console.log(productShown);
