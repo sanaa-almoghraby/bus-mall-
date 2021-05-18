@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header> 
+    <header>
         <h1> BusMall </h1>
         <nav>
 
@@ -18,9 +18,27 @@
     </header>
     <main>
         <div class="stylep">
-        <p> <h2>HI</h2> you have 25 times to Product selection</p>
-    </div>
-        <div class="busmallimg">
+            <p>
+            <h2>HI</h2> you have 25 times to Product selection</p>
+        </div>
+
+        <div id="numproduct">
+            <form>
+                <fieldset>
+                    <legend> Choice product </legend>
+                    <label for="entnum">Enter a number of choice product the default choice number is 25</label><br>
+                    <input type="number" id="numchoice" name="entnum" placeholder="Enter number" min="1" max="25"><br>
+                    <button type="submit">SAVE</button>
+
+            </form>
+
+            </fieldset>
+
+        </div>
+        <div>
+            <p id="textofp"></p>
+        </div>
+        <div id="busmallimg">
             <img src="" alt="" id="firstimg">
             <img src="" alt="" id="secondimg">
             <img src="" alt="" id="thirdimg">
@@ -29,14 +47,15 @@
             <div id="listresult">
 
             </div>
-            
+
         </div>
-        <div>   <canvas id="myChart" width="150px" height="150px"></canvas>
+        <div>
+            <canvas id="myChart" width="150px" height="150px"></canvas>
             <button id="showresult"> View Results </button>
         </div>
     </main>
     <footer>
-        &copy; 
+        &copy;
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>

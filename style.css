@@ -16,7 +16,7 @@ header{
 .busmallimg{   
      margin-left:200px;
 }
-.busmallimg img{
+#busmallimg img{
     height: 200px;
     width: 200px;
     margin: 10px;

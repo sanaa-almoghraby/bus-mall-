@@ -13,9 +13,9 @@ let secondimag;
 let thirdimag;
 let voting = 25;
 let userClic = 0;
-let productName=[];
-let countVote=[];
-let productShown=[];
+let productName = [];
+let countVote = [];
+let productShown = [];
 
 function CAtalogbusmall(name, path, times) {
     this.name = name;
@@ -62,18 +62,34 @@ function randomImage() {
     firstimag = gitRandomImage();
     secondimag = gitRandomImage();
     thirdimag = gitRandomImage();
+
+
+    let checkimg = [busmall[firstimag].name, busmall[secondimag].name, busmall[thirdimag].name];
+
     
     let checkimg = [CAtalogbusmall.busmall[firstimag].name ,CAtalogbusmall.busmall[secondimag].name,CAtalogbusmall.busmall[thirdimag].name];
+
     console.log(checkimg);
-    
+
     do {
         secondimag = gitRandomImage();
         thirdimag = gitRandomImage();
-    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag === checkimg[0] || secondimag===checkimg[1] || thirdimag===checkimg[2]);
-    
+    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag === checkimg[0] || secondimag === checkimg[1] || thirdimag === checkimg[2]);
+
     // console.log(busmall[firstimag]);
     // console.log(busmall[secondimag]);
     // console.log(busmall[thirdimag]);
+
+    firstimgElement.src = busmall[firstimag].path
+    secondimgElement.src = busmall[secondimag].path
+    thirdimgElement.src = busmall[thirdimag].path
+
+    firstimgElement.times = busmall[firstimag].times++;
+    secondimgElement.times = busmall[secondimag].times++;
+    thirdimgElement.times = busmall[thirdimag].times++;
+
+
+
     firstimgElement.src = CAtalogbusmall.busmall[firstimag].path
     secondimgElement.src =CAtalogbusmall. busmall[secondimag].path
     thirdimgElement.src = CAtalogbusmall.busmall[thirdimag].path
@@ -82,17 +98,32 @@ function randomImage() {
     secondimgElement.times = CAtalogbusmall.busmall[secondimag].times++;
     thirdimgElement.times = CAtalogbusmall.busmall[thirdimag].times++;
     
-    
+
 }
 randomImage();
 
-firstimgElement.addEventListener('click', clickImage);
-secondimgElement.addEventListener('click', clickImage);
-thirdimgElement.addEventListener('click', clickImage);
+let displayimg = document.getElementById('busmallimg');
+displayimg.addEventListener('click', clickImage);
+
+// firstimgElement.addEventListener('click', clickImage);
+// secondimgElement.addEventListener('click', clickImage);
+// thirdimgElement.addEventListener('click', clickImage);
+//----------------------------------------------------------------------------------------------
+let formimg = document.getElementById('numproduct');
+formimg.addEventListener('submit', numberOfproduct);
+
+let textOfp= document.getElementById('textofp');
+
+function numberOfproduct(event) {
+    event.preventDefault();
+    voting = event.target.numchoice.value;
+    textOfp.textContent= `The Number of chise broduct is ${voting}`;
+
+}
 
 function clickImage(event) {
     userClic++;
-    if (userClic <= voting) {
+    if (userClic < voting) {
         console.log(userClic);
 
         if (event.target.id === 'firstimg') {
@@ -104,13 +135,13 @@ function clickImage(event) {
             CAtalogbusmall.busmall[thirdimag].counterclic = CAtalogbusmall.busmall[thirdimag].counterclic + 1;
 
         }
-        randomImage();
+        // randomImage();
 
 
     } else {
-        firstimgElement.removeEventListener('click', clickImage);
-        secondimgElement.removeEventListener('click', clickImage);
-        thirdimgElement.removeEventListener('click', clickImage);
+        displayimg.removeEventListener('click', clickImage);
+        // secondimgElement.removeEventListener('click', clickImage);
+        // thirdimgElement.removeEventListener('click', clickImage);
 
 
 
@@ -120,6 +151,7 @@ function clickImage(event) {
     randomImage();
 }
 // let liImge = document.getElementById('listresult');
+
 
 showResult.addEventListener('click', listofresult);
 function listofresult(event) {
@@ -132,12 +164,17 @@ function listofresult(event) {
     //     listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
 
     // }
+
+    for (let i = 0; i < busmall.length; i++) {
+        countVote.push(busmall[i].counterclic);
+        productShown.push(busmall[i].times);
+
     for(let i=0;i<CAtalogbusmall.busmall.length; i++){
         countVote.push(CAtalogbusmall.busmall[i].counterclic);
         productShown.push(CAtalogbusmall.busmall[i].times);
 
     }
-risultChart();
+    risultChart();
 }
 
 function risultChart() {
@@ -154,13 +191,13 @@ function risultChart() {
                 borderColor: 'rgba(0,255,0,0.3)',
                 borderWidth: 1
             },
-        {
-            label: '# of product shown',
-            data: productShown,
-            backgroundColor:'#8A2B45',
-            borderColor:'#3A1742',
-            borderWidth:1
-        }]
+            {
+                label: '# of product shown',
+                data: productShown,
+                backgroundColor: '#8A2B45',
+                borderColor: '#3A1742',
+                borderWidth: 1
+            }]
         },
         options: {
             scales: {
