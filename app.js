@@ -64,10 +64,7 @@ function randomImage() {
     thirdimag = gitRandomImage();
 
 
-    let checkimg = [busmall[firstimag].name, busmall[secondimag].name, busmall[thirdimag].name];
-
-    
-    let checkimg = [CAtalogbusmall.busmall[firstimag].name ,CAtalogbusmall.busmall[secondimag].name,CAtalogbusmall.busmall[thirdimag].name];
+    let checkimg = [CAtalogbusmall.busmall[firstimag].name, CAtalogbusmall.busmall[secondimag].name, CAtalogbusmall.busmall[thirdimag].name];
 
     console.log(checkimg);
 
@@ -91,13 +88,13 @@ function randomImage() {
 
 
     firstimgElement.src = CAtalogbusmall.busmall[firstimag].path
-    secondimgElement.src =CAtalogbusmall. busmall[secondimag].path
+    secondimgElement.src = CAtalogbusmall.busmall[secondimag].path
     thirdimgElement.src = CAtalogbusmall.busmall[thirdimag].path
-    
+
     firstimgElement.times = CAtalogbusmall.busmall[firstimag].times++;
     secondimgElement.times = CAtalogbusmall.busmall[secondimag].times++;
     thirdimgElement.times = CAtalogbusmall.busmall[thirdimag].times++;
-    
+
 
 }
 randomImage();
@@ -112,12 +109,12 @@ displayimg.addEventListener('click', clickImage);
 let formimg = document.getElementById('numproduct');
 formimg.addEventListener('submit', numberOfproduct);
 
-let textOfp= document.getElementById('textofp');
+let textOfp = document.getElementById('textofp');
 
 function numberOfproduct(event) {
     event.preventDefault();
     voting = event.target.numchoice.value;
-    textOfp.textContent= `The Number of chise broduct is ${voting}`;
+    textOfp.textContent = `The Number of chise broduct is ${voting}`;
 
 }
 
@@ -129,7 +126,7 @@ function clickImage(event) {
         if (event.target.id === 'firstimg') {
             CAtalogbusmall.busmall[firstimag].counterclic = CAtalogbusmall.busmall[firstimag].counterclic + 1;
         } else if (event.target.id === 'secondimg') {
-            CAtalogbusmall.busmall[secondimag].counterclic =CAtalogbusmall.busmall[secondimag].counterclic + 1;
+            CAtalogbusmall.busmall[secondimag].counterclic = CAtalogbusmall.busmall[secondimag].counterclic + 1;
 
         } else {
             CAtalogbusmall.busmall[thirdimag].counterclic = CAtalogbusmall.busmall[thirdimag].counterclic + 1;
@@ -169,45 +166,45 @@ function listofresult(event) {
         countVote.push(busmall[i].counterclic);
         productShown.push(busmall[i].times);
 
-    for(let i=0;i<CAtalogbusmall.busmall.length; i++){
-        countVote.push(CAtalogbusmall.busmall[i].counterclic);
-        productShown.push(CAtalogbusmall.busmall[i].times);
+        for (let i = 0; i < CAtalogbusmall.busmall.length; i++) {
+            countVote.push(CAtalogbusmall.busmall[i].counterclic);
+            productShown.push(CAtalogbusmall.busmall[i].times);
 
+        }
+        risultChart();
     }
-    risultChart();
-}
 
-function risultChart() {
-    let ctx = document.getElementById('myChart').getContext('2d');
-    let myChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: productName
-            ,
-            datasets: [{
-                label: '# of product choice',
-                data: countVote,
-                backgroundColor: 'rgba(201, 76, 76, 0.6)',
-                borderColor: 'rgba(0,255,0,0.3)',
-                borderWidth: 1
+    function risultChart() {
+        let ctx = document.getElementById('myChart').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: productName
+                ,
+                datasets: [{
+                    label: '# of product choice',
+                    data: countVote,
+                    backgroundColor: 'rgba(201, 76, 76, 0.6)',
+                    borderColor: 'rgba(0,255,0,0.3)',
+                    borderWidth: 1
+                },
+                {
+                    label: '# of product shown',
+                    data: productShown,
+                    backgroundColor: '#8A2B45',
+                    borderColor: '#3A1742',
+                    borderWidth: 1
+                }]
             },
-            {
-                label: '# of product shown',
-                data: productShown,
-                backgroundColor: '#8A2B45',
-                borderColor: '#3A1742',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
+    }
 }
-
-console.log(productShown);
+    console.log(productShown);
