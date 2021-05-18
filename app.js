@@ -7,7 +7,7 @@ let thirdimgElement = document.getElementById('thirdimg');
 let showResult = document.getElementById('showresult');
 
 
-let busmall = [];
+CAtalogbusmall.busmall = [];
 let firstimag;
 let secondimag;
 let thirdimag;
@@ -22,9 +22,9 @@ function CAtalogbusmall(name, path, times) {
     this.path = path;
     this.times = times;
     this.counterclic = 0
-    busmall.push(this);
+    CAtalogbusmall.busmall.push(this);
     productName.push(this.name);
-
+    setProduct();
 }
 new CAtalogbusmall('bag', 'img/bag.jpg', 0);
 new CAtalogbusmall('banana', 'img/banana.jpg', 0);
@@ -47,10 +47,15 @@ new CAtalogbusmall('water-can', 'img/water-can.jpg', 0);
 new CAtalogbusmall('wine-glass', 'img/wine-glass.jpg', 0);
 
 function gitRandomImage() {
-    return Math.floor(Math.random() * busmall.length);
+    return Math.floor(Math.random() * CAtalogbusmall.busmall.length);
 }
 // console.log(Math.floor(Math.random() * busmall.length));
-
+//------------------------------ Add local storage-----------------------------------
+function setProduct() {
+    let productdata = JSON.stringify(CAtalogbusmall.busmall);
+    console.log(productdata);
+    localStorage.setItem('CAtalogbusmall', productdata);
+}
 
 function randomImage() {
 
@@ -58,7 +63,12 @@ function randomImage() {
     secondimag = gitRandomImage();
     thirdimag = gitRandomImage();
 
+
     let checkimg = [busmall[firstimag].name, busmall[secondimag].name, busmall[thirdimag].name];
+
+    
+    let checkimg = [CAtalogbusmall.busmall[firstimag].name ,CAtalogbusmall.busmall[secondimag].name,CAtalogbusmall.busmall[thirdimag].name];
+
     console.log(checkimg);
 
     do {
@@ -69,6 +79,7 @@ function randomImage() {
     // console.log(busmall[firstimag]);
     // console.log(busmall[secondimag]);
     // console.log(busmall[thirdimag]);
+
     firstimgElement.src = busmall[firstimag].path
     secondimgElement.src = busmall[secondimag].path
     thirdimgElement.src = busmall[thirdimag].path
@@ -77,6 +88,16 @@ function randomImage() {
     secondimgElement.times = busmall[secondimag].times++;
     thirdimgElement.times = busmall[thirdimag].times++;
 
+
+
+    firstimgElement.src = CAtalogbusmall.busmall[firstimag].path
+    secondimgElement.src =CAtalogbusmall. busmall[secondimag].path
+    thirdimgElement.src = CAtalogbusmall.busmall[thirdimag].path
+    
+    firstimgElement.times = CAtalogbusmall.busmall[firstimag].times++;
+    secondimgElement.times = CAtalogbusmall.busmall[secondimag].times++;
+    thirdimgElement.times = CAtalogbusmall.busmall[thirdimag].times++;
+    
 
 }
 randomImage();
@@ -106,12 +127,12 @@ function clickImage(event) {
         console.log(userClic);
 
         if (event.target.id === 'firstimg') {
-            busmall[firstimag].counterclic = busmall[firstimag].counterclic + 1;
+            CAtalogbusmall.busmall[firstimag].counterclic = CAtalogbusmall.busmall[firstimag].counterclic + 1;
         } else if (event.target.id === 'secondimg') {
-            busmall[secondimag].counterclic = busmall[secondimag].counterclic + 1;
+            CAtalogbusmall.busmall[secondimag].counterclic =CAtalogbusmall.busmall[secondimag].counterclic + 1;
 
         } else {
-            busmall[thirdimag].counterclic = busmall[thirdimag].counterclic + 1;
+            CAtalogbusmall.busmall[thirdimag].counterclic = CAtalogbusmall.busmall[thirdimag].counterclic + 1;
 
         }
         // randomImage();
@@ -143,9 +164,14 @@ function listofresult(event) {
     //     listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
 
     // }
+
     for (let i = 0; i < busmall.length; i++) {
         countVote.push(busmall[i].counterclic);
         productShown.push(busmall[i].times);
+
+    for(let i=0;i<CAtalogbusmall.busmall.length; i++){
+        countVote.push(CAtalogbusmall.busmall[i].counterclic);
+        productShown.push(CAtalogbusmall.busmall[i].times);
 
     }
     risultChart();
