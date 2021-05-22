@@ -202,4 +202,6 @@ function risultChart() {
 
 }
 
+
 console.log(productShown);
+
