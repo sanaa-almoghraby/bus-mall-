@@ -53,9 +53,11 @@ function gitRandomImage() {
 //------------------------------ Add local storage-----------------------------------
 function setProduct() {
     let productdata = JSON.stringify(busmall);
-    console.log(productdata);
+    //console.log(productdata);
     localStorage.setItem('CAtalogbusmall', productdata);
 }
+let checkimg = [];
+checkimg = [firstimag, secondimag, thirdimag];
 
 function randomImage() {
 
@@ -63,14 +65,19 @@ function randomImage() {
     secondimag = gitRandomImage();
     thirdimag = gitRandomImage();
 
-    let checkimg = [busmall[firstimag].name,busmall[secondimag].name, busmall[thirdimag].name];
-
-    console.log(checkimg);
+    
+    // console.log(checkimg);
 
     do {
         secondimag = gitRandomImage();
         thirdimag = gitRandomImage();
-    } while (secondimag === thirdimag || secondimag === firstimag || firstimag === thirdimag || firstimag === checkimg[0] || secondimag === checkimg[1] || thirdimag === checkimg[2]);
+    } while (secondimag === thirdimag ||
+        secondimag === firstimag ||
+        firstimag === thirdimag ||
+        checkimg.includes(firstimag) ||
+        checkimg.includes(secondimag) ||
+            checkimg.includes(thirdimag)
+    )
 
     // console.log(busmall[firstimag]);
     // console.log(busmall[secondimag]);
@@ -83,19 +90,8 @@ function randomImage() {
     firstimgElement.times = busmall[firstimag].times++;
     secondimgElement.times = busmall[secondimag].times++;
     thirdimgElement.times = busmall[thirdimag].times++;
-
-
-
-    firstimgElement.src = busmall[firstimag].path
-    secondimgElement.src = busmall[secondimag].path
-    thirdimgElement.src = busmall[thirdimag].path
-
-    firstimgElement.times = busmall[firstimag].times++;
-    secondimgElement.times = busmall[secondimag].times++;
-    thirdimgElement.times = busmall[thirdimag].times++;
-
-
 }
+
 randomImage();
 
 let displayimg = document.getElementById('busmallimg');
@@ -144,22 +140,20 @@ function clickImage(event) {
 
     }
 
+    showResult.addEventListener('click', listofresult);
     randomImage();
 }
-// let liImge = document.getElementById('listresult');
-
-
-showResult.addEventListener('click', listofresult);
+let liImge = document.getElementById('listresult');
 function listofresult(event) {
-    // let ullist = document.createElement('ul')
-    // liImge.appendChild(ullist);
-    // let listImage;
-    // for (let i = 0; i < busmall.length; i++) {
-    //     listImage = document.createElement('li');
-    //     ullist.appendChild(listImage);
-    //     listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
+    let ullist = document.createElement('ul')
+    liImge.appendChild(ullist);
+    let listImage;
+    for (let i = 0; i < busmall.length; i++) {
+        listImage = document.createElement('li');
+        ullist.appendChild(listImage);
+        listImage.textContent = `${busmall[i].name}  had ${busmall[i].counterclic} , and was seen ${busmall[i].times} times.`;
 
-    // }
+    }
 
     for (let i = 0; i < busmall.length; i++) {
         countVote.push(busmall[i].counterclic);
@@ -170,40 +164,44 @@ function listofresult(event) {
             productShown.push(busmall[i].times);
 
         }
-        risultChart();
     }
+    risultChart();
 
-    function risultChart() {
-        let ctx = document.getElementById('myChart').getContext('2d');
-        let myChart = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: productName
-                ,
-                datasets: [{
-                    label: '# of product choice',
-                    data: countVote,
-                    backgroundColor: 'rgba(201, 76, 76, 0.6)',
-                    borderColor: 'rgba(0,255,0,0.3)',
-                    borderWidth: 1
-                },
-                {
-                    label: '# of product shown',
-                    data: productShown,
-                    backgroundColor: '#8A2B45',
-                    borderColor: '#3A1742',
-                    borderWidth: 1
-                }]
+
+}
+function risultChart() {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productName
+            ,
+            datasets: [{
+                label: '# of product choice',
+                data: countVote,
+                backgroundColor: 'rgba(201, 76, 76, 0.6)',
+                borderColor: 'rgba(0,255,0,0.3)',
+                borderWidth: 1
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            {
+                label: '# of product shown',
+                data: productShown,
+                backgroundColor: '#8A2B45',
+                borderColor: '#3A1742',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
 
-    }
 }
+
+
 console.log(productShown);
+
